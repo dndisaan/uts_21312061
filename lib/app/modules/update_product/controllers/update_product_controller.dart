@@ -5,33 +5,43 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UpdateProductController extends GetxController {
+  late TextEditingController cNpm;
   late TextEditingController cNama;
-  late TextEditingController cHarga;
+  late TextEditingController cAlamat;
+  late TextEditingController cProgramStudi;
+  late TextEditingController cJenisKelamin;
   
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   Future<DocumentSnapshot<Object?>> getData(String id) async {
-    DocumentReference docRef = firestore.collection("products").doc(id);
+    DocumentReference docRef = firestore.collection("mahasiswa").doc(id);
 
     return docRef.get();
   }
 
-  void updateProduct(String nama, String harga, String id) async {
-    DocumentReference productById = firestore.collection("products").doc(id);
+  void updateProduct(String npm, String nama, String alamat, String programStudi, String jenisKelamin, String id) async {
+    DocumentReference productById = firestore.collection("mahasiswa").doc(id);
 
     try {
       await productById.update({
-        "name": nama,
-        "price":harga,
+        "NPM":npm,
+        "nama": nama,
+        "alamat":alamat,
+        "program studi":programStudi,
+        "jenis Kelamin":jenisKelamin
+
       });
 
       Get.defaultDialog(
         title: "Berhasil",
         middleText: "Berhasil mengubah data product. ",
         onConfirm: () {
+          cNpm.clear();
           cNama.clear();
-          cHarga.clear();
+          cAlamat.clear();
+          cProgramStudi.clear();
+          cJenisKelamin.clear();
           Get.back();
           Get.back();
           
@@ -50,16 +60,22 @@ class UpdateProductController extends GetxController {
   @override
   void onInit() {
     // TODO: implement initState
+    cNpm = TextEditingController();
     cNama = TextEditingController();
-    cHarga = TextEditingController();
+    cAlamat = TextEditingController();
+    cProgramStudi = TextEditingController();
+    cJenisKelamin = TextEditingController();
     super.onInit();
   }
 
   @override
   void onClose() {
     //    print("onClose");
+    cNpm.dispose();
     cNama.dispose();
-    cHarga.dispose();
+    cAlamat.dispose();
+    cProgramStudi.dispose();
+    cJenisKelamin.dispose();
     super.onClose();
   }
 }

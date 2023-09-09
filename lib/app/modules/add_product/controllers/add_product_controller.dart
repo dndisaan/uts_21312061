@@ -4,25 +4,35 @@ import 'package:get/get.dart';
 
 class AddProductController extends GetxController {
 
+  late TextEditingController cNpm;
   late TextEditingController cNama;
-  late TextEditingController cHarga;
+  late TextEditingController cAlamat;
+  late TextEditingController cProgramStudi;
+  late TextEditingController cJenisKelamin;
+
   
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-  void addProduct(String nama, String harga) async {
-    CollectionReference products = firestore.collection("products");
+  void addProduct(String npm, String nama, String alamat, String programStudi, String jenisKelamin) async {
+    CollectionReference mahasiswa = firestore.collection("mahasiswa");
 
     try {
-      await products.add({
-        "name":nama,
-        "price":harga
+      await mahasiswa.add({
+        "NPM":npm,
+        "nama": nama,
+        "alamat":alamat,
+        "program_studi":programStudi,
+        "jk":jenisKelamin
       });
       Get.defaultDialog(
         title: "Berhasil",
         middleText: "Berhasil Menyimpan data produk",
         onConfirm: () {
+          cNpm.clear();
           cNama.clear();
-          cHarga.clear();
+          cAlamat.clear();
+          cProgramStudi.clear();
+          cJenisKelamin.clear();
           Get.back();
           Get.back();
           textConfirm:
@@ -36,16 +46,22 @@ class AddProductController extends GetxController {
   @override
   void onInit() {
     // TODO: implement onInit
+    cNpm = TextEditingController();
     cNama = TextEditingController();
-    cHarga = TextEditingController();
+    cAlamat = TextEditingController();
+    cProgramStudi = TextEditingController();
+    cJenisKelamin = TextEditingController();
     super.onInit();
   }
 
   @override
   void onClose() {
     // TODO: implement onClose
+    cNpm.dispose();
     cNama.dispose();
-    cHarga.dispose();
+    cAlamat.dispose();
+    cProgramStudi.dispose();
+    cJenisKelamin.dispose();
     super.onClose();
   }
 }

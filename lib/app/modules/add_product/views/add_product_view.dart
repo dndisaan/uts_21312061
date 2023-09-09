@@ -18,28 +18,58 @@ class AddProductView extends GetView<AddProductController> {
         child: Column(
           children: [
             TextField(
-              controller: controller.cNama,
+              controller: controller.cNpm,
               autocorrect: false,
               textInputAction: TextInputAction.next,
-              decoration: InputDecoration(labelText: "Nama Product"),
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(labelText: "NMP"),
             ),
             SizedBox(
               height: 10,
             ),
             TextField(
-              controller: controller.cHarga,
+              controller: controller.cNama,
+              autocorrect: false,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(labelText: "Nama"),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              controller: controller.cAlamat,
+              autocorrect: false,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(labelText: "Alamat"),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              controller: controller.cProgramStudi,
+              autocorrect: false,
+              textInputAction: TextInputAction.next,
+              decoration: InputDecoration(labelText: "Program Studi"),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            TextField(
+              controller: controller.cJenisKelamin,
               autocorrect: false,
               textInputAction: TextInputAction.done,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: "Harga Product"),
+              decoration: InputDecoration(labelText: "Jenis Kelamin"),
             ),
             SizedBox(
               height: 30,
             ),
             ElevatedButton(
               onPressed: () => controller.addProduct(
+                controller.cNpm.text,
                 controller.cNama.text,
-                controller.cHarga.text,
+                controller.cAlamat.text,
+                controller.cProgramStudi.text,
+                controller.cJenisKelamin.text,
               ),
               child: Text("Simpan"),
             ),
