@@ -107,6 +107,7 @@ class HomeView extends GetView<HomeController> {
         },
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
         onPressed: () => Get.toNamed(Routes.ADD_PRODUCT),
         child: Icon(Icons.add),
       ),
